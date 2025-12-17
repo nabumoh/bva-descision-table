@@ -1,37 +1,75 @@
 package bva_desciisionTable.bva_desciisionTable;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class MinCalculatorTest {
-    
-	 @Test
-	    void testAIsZero_shouldThrowException() {
-	        // arrange
-	        int a = 0;   // ערך לא חוקי
-	        int b = 50;
-	        int c = 50;
-	        int d = 50;
-	        int e = 50;
 
-	        // act + assert
-	        assertThrows(IllegalArgumentException.class, () -> {
-	        	MinCalculator.findMin(a, b, c, d, e);
-	        });
-	    }
+    private final int A = 50;
+    private final int C = 50;
+    private final int D = 50;
+    private final int E = 50;
 
-	 @Test
-	    void testAIsOne_shouldReturnMinimum() {
-	        // arrange
-	        int a = 10;    // ערך גבול תקין
-	        int b = 50;
-	        int c = 50;
-	        int d = 50;
-	        int e = 50;
+    @Test
+    void testBIsZero_shouldThrowException() {
+        int b = 0;   // B min-1 (לא חוקי)
 
-	        // act
-	        int result = MinCalculator.findMin(a, b, c, d, e);
+        assertThrows(IllegalArgumentException.class, () -> {
+            MinCalculator.findMin(A, b, C, D, E);
+        });
+    }
 
-	        // assert
-	        assertEquals(10, result);   // 1 הוא הערך המינימלי
-	    }
+    @Test
+    void testBIsOne_shouldReturnOne() {
+        int b = 1;   // B min
+
+        int result = MinCalculator.findMin(A, b, C, D, E);
+
+        assertEquals(1, result);
+    }
+
+    @Test
+    void testBIsTwo_shouldReturnTwo() {
+        int b = 2;   // B min+1
+
+        int result = MinCalculator.findMin(A, b, C, D, E);
+
+        assertEquals(2, result);
+    }
+
+    @Test
+    void testBNominal_shouldReturn50() {
+        int b = 50;  // nominal
+
+        int result = MinCalculator.findMin(A, b, C, D, E);
+
+        assertEquals(50, result);
+    }
+
+    @Test
+    void testBIs999_shouldReturn50() {
+        int b = 999; // B max-1
+
+        int result = MinCalculator.findMin(A, b, C, D, E);
+
+        assertEquals(50, result);
+    }
+
+    @Test
+    void testBIs1000_shouldReturn50() {
+        int b = 1000; // B max
+
+        int result = MinCalculator.findMin(A, b, C, D, E);
+
+        assertEquals(50, result);
+    }
+
+    @Test
+    void testBIs1001_shouldThrowException() {
+        int b = 1001; // B max+1 (לא חוקי)
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            MinCalculator.findMin(A, b, C, D, E);
+        });
+    }
 }
